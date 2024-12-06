@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { CommonModule } from '@angular/common';
+import {CLIENTES} from './clientes.json';
 
 @Component({
   selector: 'app-clientes',
@@ -13,13 +14,17 @@ import { CommonModule } from '@angular/common';
 
 export class ClientesComponent implements OnInit {
 
-  clientes: Cliente[]=[
+  clientes: Cliente[] = [];
+  
+  //no lo uso
+  cls: Cliente[]=[
     {id: 1, nombre: 'Juan', apellido: 'Perez', email: 'Juan@unicauca.edu.co', createAt: '2021-05-14'},
     {id: 2, nombre: 'Sebas', apellido: 'Sangez', email: 'san@unicauca.edu.co', createAt: '2022-05-14'}
   ]
   constructor() { }
 
   ngOnInit(): void {
+    this.clientes = CLIENTES;
 
   }
 }
