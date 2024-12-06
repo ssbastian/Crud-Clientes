@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { CommonModule } from '@angular/common';
-import {CLIENTES} from './clientes.json';
+import { ClienteService } from './cliente.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
@@ -13,18 +14,22 @@ import {CLIENTES} from './clientes.json';
 
 
 export class ClientesComponent implements OnInit {
-
-  clientes: Cliente[] = [];
-  
   //no lo uso
-  cls: Cliente[]=[
+/*   cls: Cliente[]=[
     {id: 1, nombre: 'Juan', apellido: 'Perez', email: 'Juan@unicauca.edu.co', createAt: '2021-05-14'},
     {id: 2, nombre: 'Sebas', apellido: 'Sangez', email: 'san@unicauca.edu.co', createAt: '2022-05-14'}
-  ]
-  constructor() { }
+  ] */
+  
+  clientes: Cliente[] = [];
 
+  constructor(private objClienteService: ClienteService) {  }
+    
   ngOnInit(): void {
-    this.clientes = CLIENTES;
 
+    this.objClienteService.getClientes().subscribe
+    (
+      clientes => this.clientes = clientes
+    );
+    
   }
 }
