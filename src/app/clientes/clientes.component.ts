@@ -3,6 +3,8 @@ import { Cliente } from './cliente';
 import { CommonModule } from '@angular/common';
 import { ClienteService } from './cliente.service';
 import { RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-clientes',
@@ -25,7 +27,6 @@ export class ClientesComponent implements OnInit {
   constructor(private objClienteService: ClienteService) {  }
     
   ngOnInit(): void {
-
     this.objClienteService.getClientes().subscribe
     (
       clientes => this.clientes = clientes
