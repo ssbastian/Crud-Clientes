@@ -8,6 +8,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  title : string = 'Proyecto de clase' 
+  title : string = 'Crud Clientes' 
   /* hacer una interpolacion con title */
 }
