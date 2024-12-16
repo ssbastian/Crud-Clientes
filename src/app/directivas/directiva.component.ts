@@ -14,6 +14,6 @@ export class DirectivaComponent {
   ] */
 
     Directiva: String[] = [
-      'juan', 'sandra', 'Andres'
+      '1', '2', '3'
     ]
 }

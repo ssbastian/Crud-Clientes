@@ -4,34 +4,45 @@ import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
 import { CLIENTES } from './clientes.json';
 
-import { Observable, of } from 'rxjs'; // patron observador 
+import { catchError, Observable, of, throwError } from 'rxjs'; // patron observador
 
 //import para que consuma el API REST
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
   private urlEndPoint: string = 'http://localhost:8085/api/clientes';
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'}); //indicarle al servidor qeu nos deve devolfer un json
-
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' }); //indicarle al servidor qeu nos deve devolfer un json
 
   constructor(private http: HttpClient) {}
 
-/*   getClientes(): Observable<Cliente[]> {
+  /*   getClientes(): Observable<Cliente[]> {
     return of(CLIENTES);
   } */
 
-    getClientes(): Observable<Cliente[]> {
-      return this.http.get<Cliente[]>(this.urlEndPoint);
-    }
+  getClientes(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(this.urlEndPoint);
+  }
 
-    
-    create(cliente: Cliente) : Observable<Cliente> {
+  /*     create(cliente: Cliente) : Observable<Cliente> {
       return this.http.post<Cliente>(this.urlEndPoint,cliente, {headers: this.httpHeaders})
-    }
+    } */
 
-
-
+  create(cliente: Cliente): Observable<Cliente> {
+    return this.http
+      .post<Cliente>(this.urlEndPoint, cliente, { headers: this.httpHeaders })
+      .pipe(
+        catchError((e) => {
+          if (e.status == 400) {
+            return throwError(e);
+          }
+          console.log(e.error.mensaje);
+          swal.fire('Error al crear el cliente', e.error.mensaje, 'error');
+          return throwError(e);
+        })
+      );
+  }
 }
