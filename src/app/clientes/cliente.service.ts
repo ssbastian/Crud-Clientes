@@ -9,6 +9,7 @@ import { catchError, Observable, of, throwError } from 'rxjs'; // patron observa
 //import para que consuma el API REST
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
+import { Region } from './Region';
 
 @Injectable({
   providedIn: 'root',
@@ -44,5 +45,9 @@ export class ClienteService {
           return throwError(e);
         })
       );
+  }
+
+  getRegiones(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
   }
 }

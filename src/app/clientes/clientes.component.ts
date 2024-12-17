@@ -30,7 +30,9 @@ export class ClientesComponent implements OnInit {
     this.objClienteService.getClientes().subscribe
     (
       clientes => this.clientes = clientes
+      
     );
-    
+   
   }
+
 }
