@@ -30,11 +30,12 @@ export class ClienteService {
 
   /*     create(cliente: Cliente) : Observable<Cliente> {
       return this.http.post<Cliente>(this.urlEndPoint,cliente, {headers: this.httpHeaders})
+      return this.http.delete<Cliente>(this.urlEndPoint, 1 )
+      
     } */
 
   create(cliente: Cliente): Observable<Cliente> {
-    return this.http
-      .post<Cliente>(this.urlEndPoint, cliente, { headers: this.httpHeaders })
+    return this.http.post<Cliente>(this.urlEndPoint, cliente, { headers: this.httpHeaders })
       .pipe(
         catchError((e) => {
           if (e.status == 400) {
@@ -47,7 +48,24 @@ export class ClienteService {
       );
   }
 
+  delete(id: number): Observable<Cliente[]> {
+    const url = `${this.urlEndPoint}/${id}`; // Aquí usamos la URL dinámica
+    return this.http.delete<Cliente[]>(url, { headers: this.httpHeaders })  // Usamos 'any' si no estás seguro del tipo de respuesta
+    .pipe(
+      catchError((e) => {
+        if (e.status == 400) {
+          return throwError(e);
+        }
+        console.log(e.error.mensaje);
+        swal.fire('Error al eliminar el cliente', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
   getRegiones(): Observable<Region[]> {
     return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
   }
+
+  
 }
