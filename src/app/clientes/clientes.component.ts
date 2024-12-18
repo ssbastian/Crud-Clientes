@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { CommonModule } from '@angular/common';
 import { ClienteService } from './cliente.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import swal from 'sweetalert2';
 
@@ -19,13 +19,11 @@ export class ClientesComponent implements OnInit {
     {id: 2, nombre: 'Sebas', apellido: 'Sangez', email: 'san@unicauca.edu.co', createAt: '2022-05-14'}
   ] */
  
-  editarCliente(_t24: Cliente) {
-    throw new Error('Method not implemented.');
-  }
+
 
   clientes: Cliente[] = [];
 
-  constructor(private objClienteService: ClienteService) {}
+  constructor(private objClienteService: ClienteService, private router: Router) {}
 
   eliminarCliente(id: number) {
     // Muestra un cuadro de confirmación antes de proceder con la eliminación
@@ -48,6 +46,16 @@ export class ClientesComponent implements OnInit {
         swal.fire('Cancelado', 'El cliente no fue eliminado', 'info');
       }
     });
+  }
+
+  editarCliente(id: number) {
+   /*  cliente.nombre = 'test'
+    cliente.apellido = 'hola'
+    
+    
+    this.objClienteService.editar(cliente); */
+    /* console.log("metodo editar"); */
+    this.router.navigate(['/cliente/form',id]);
   }
 
 

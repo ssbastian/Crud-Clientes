@@ -28,6 +28,12 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.urlEndPoint);
   }
 
+  getClienteId(id : number) : Observable<Cliente>{
+    const url = `${this.urlEndPoint}/${id}`; // Aquí usamos la URL dinámica
+    return this.http.get<Cliente>(url, { headers: this.httpHeaders })
+  }
+
+
   /*     create(cliente: Cliente) : Observable<Cliente> {
       return this.http.post<Cliente>(this.urlEndPoint,cliente, {headers: this.httpHeaders})
       return this.http.delete<Cliente>(this.urlEndPoint, 1 )
@@ -61,6 +67,12 @@ export class ClienteService {
         return throwError(e);
       })
     );
+  }
+
+
+  editar(cliente: Cliente) {
+    const url = `${this.urlEndPoint}/${cliente.id}`; // Aquí usamos la URL dinámica
+    return this.http.put<Cliente>(url, cliente, {headers: this.httpHeaders });
   }
 
   getRegiones(): Observable<Region[]> {

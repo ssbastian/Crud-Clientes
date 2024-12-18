@@ -16,7 +16,8 @@
         <form #clienteForm="ngForm">
             <!-- Nombre -->
             <div class="form-group row mb-3">
-                <label for="nombre" class="col-form-label col-sm-3" style="font-weight: 500; color: #555;">Nombre</label>
+                <label for="nombre" class="col-form-label col-sm-3"
+                    style="font-weight: 500; color: #555;">Nombre</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" #nombre="ngModel"
                         style="border-radius: 8px; padding: 10px;" placeholder="Ingresa el nombre">
@@ -25,10 +26,12 @@
 
             <!-- Apellido -->
             <div class="form-group row mb-3">
-                <label for="apellido" class="col-form-label col-sm-3" style="font-weight: 500; color: #555;">Apellido</label>
+                <label for="apellido" class="col-form-label col-sm-3"
+                    style="font-weight: 500; color: #555;">Apellido</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name="apellido" #apellido="ngModel"
-                        style="border-radius: 8px; padding: 10px;" placeholder="Ingresa el apellido">
+                    <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name="apellido"
+                        #apellido="ngModel" style="border-radius: 8px; padding: 10px;"
+                        placeholder="Ingresa el apellido">
                 </div>
             </div>
 
@@ -43,22 +46,33 @@
 
             <!-- Región -->
             <div class="form-group row mb-3">
-                <label for="region" class="col-form-label col-sm-3" style="font-weight: 500; color: #555;">Región</label>
+                <label for="region" class="col-form-label col-sm-3"
+                    style="font-weight: 500; color: #555;">Región</label>
                 <div class="col-sm-9">
-                    <select [compareWith]="compararRegion" class="form-control" [(ngModel)]="cliente.region" name="region" 
-                        style="border-radius: 8px; padding: 10px; background-color: #f8f9fa;">
+                    <select [compareWith]="compararRegion" class="form-control" [(ngModel)]="cliente.region"
+                        name="region" style="border-radius: 8px; padding: 10px; background-color: #f8f9fa;">
                         <option [ngValue]="undefined">--- seleccionar una región ---</option>
                         <option *ngFor="let region of regiones" [ngValue]="region">{{ region.nombre }}</option>
                     </select>
                 </div>
             </div>
 
+            <!-- Carga de Archivos -->
+<!--             <div class="form-group row mb-3">
+                <label for="archivo" class="col-form-label col-sm-3">Archivo</label>
+                <div class="col-sm-9">
+                    <input type="file" class="form-control" (change)="onFileSelected($event)"
+                        style="border-radius: 8px; padding: 10px;">
+                </div>
+            </div> -->
+
             <!-- Botón Crear -->
             <div class="form-group row mb-0">
                 <div class="col-sm-9 offset-sm-3">
-                    <button class="btn btn-primary" role="button" (click)="crearCliente()" 
-                        [disabled]="!clienteForm.form.valid" style="border-radius: 8px; padding: 12px 20px; font-weight: 500;">
-                        Crear Cliente
+                    <button class="btn btn-primary" role="button" (click)="guardarCliente()"
+                        [disabled]="!clienteForm.form.valid"
+                        style="border-radius: 8px; padding: 12px 20px; font-weight: 500;">
+                        {{tituloBoton}}
                     </button>
                 </div>
             </div>
